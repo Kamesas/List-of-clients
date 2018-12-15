@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import "semantic-ui-css/semantic.min.css";
 import { Grid, Segment } from "semantic-ui-react";
+import { connect } from "react-redux";
 import ListOfClients from "./ListOfClients/ListOfClients";
 import ClientDetail from "./ClientDetails/ClientDetail";
 import SearchInput from "./SearchInput/SearchInput";
-import clients from "../db/clients.json";
 
 class App extends Component {
   state = {
@@ -17,7 +17,8 @@ class App extends Component {
 
   render() {
     const { clientsDetails } = this.state;
-    console.log(clientsDetails);
+    const { clients } = this.props;
+
     return (
       <Segment>
         <Grid divided="vertically">
@@ -44,4 +45,8 @@ class App extends Component {
   }
 }
 
-export default App;
+const mapStateToProps = state => ({
+  clients: state.clients
+});
+
+export default connect(mapStateToProps)(App);
