@@ -1,7 +1,13 @@
 import React from "react";
+import { Input } from "semantic-ui-react";
 
-const SearchInput = () => {
-  return <div>SearchInput</div>;
-};
+const SearchInput = () => (
+  <Input
+    icon="search"
+    iconPosition="rigth"
+    placeholder="Search clients..."
+    fluid
+  />
+);
 
 export default SearchInput;
