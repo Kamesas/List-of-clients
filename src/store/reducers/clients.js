@@ -1,6 +1,4 @@
-import clients from "../../db/clients.json";
-
-const initialState = clients;
+const initialState = "";
 
 export default (state = initialState, { type, payload }) => {
   switch (type) {

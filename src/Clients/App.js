@@ -29,13 +29,15 @@ class App extends Component {
         <Grid divided="vertically">
           <Grid.Column width={4}>
             <SearchInput />
-            {clients.map((client, i) => (
-              <ListOfClients
-                key={i}
-                client={client}
-                getClient={this.getClient}
-              />
-            ))}
+            {clients !== ""
+              ? clients.map((client, i) => (
+                  <ListOfClients
+                    key={i}
+                    client={client}
+                    getClient={this.getClient}
+                  />
+                ))
+              : "loading"}
           </Grid.Column>
           <Grid.Column width={12}>
             {clientsDetails !== "" ? (
