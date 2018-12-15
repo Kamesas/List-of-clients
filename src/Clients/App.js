@@ -9,7 +9,13 @@ import SearchInput from "./SearchInput/SearchInput";
 
 class App extends Component {
   state = {
-    clientsDetails: ""
+    clientsDetails: "",
+    finded: ""
+  };
+
+  searchHandle = e => {
+    this.setState({ finded: e.target.value });
+    console.log(this.state.finded);
   };
 
   getClient = client => {
@@ -28,7 +34,7 @@ class App extends Component {
       <Segment>
         <Grid divided="vertically">
           <Grid.Column width={4}>
-            <SearchInput />
+            <SearchInput searchHandle={this.searchHandle} />
             {clients !== ""
               ? clients.map((client, i) => (
                   <ListOfClients
