@@ -15,8 +15,22 @@ class App extends Component {
 
   searchHandle = e => {
     this.setState({ finded: e.target.value });
-    console.log(this.state.finded);
   };
+
+  displayClients(clients) {
+    if (this.state.finded.length === 0) {
+      return clients;
+    }
+
+    return clients.filter(({ general }) => {
+      const { firstName, lastName } = general;
+      const allValues = firstName + lastName;
+
+      const finded = this.state.finded.toLowerCase();
+
+      return allValues.toLowerCase().indexOf(finded) > -1;
+    });
+  }
 
   getClient = client => {
     this.setState({ clientsDetails: client });
@@ -36,7 +50,7 @@ class App extends Component {
           <Grid.Column width={4}>
             <SearchInput searchHandle={this.searchHandle} />
             {clients !== ""
-              ? clients.map((client, i) => (
+              ? this.displayClients(clients).map((client, i) => (
                   <ListOfClients
                     key={i}
                     client={client}
