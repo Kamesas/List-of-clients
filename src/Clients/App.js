@@ -22,13 +22,26 @@ class App extends Component {
       return clients;
     }
 
-    return clients.filter(({ general }) => {
+    return clients.filter(({ general, job, contact, address }) => {
       const { firstName, lastName } = general;
-      const allValues = firstName + lastName;
+      const { company, title } = job;
+      const { email, phone } = contact;
+      const { street, city, zipCode, country } = address;
+      const all =
+        firstName +
+        lastName +
+        company +
+        title +
+        email +
+        phone +
+        street +
+        city +
+        zipCode +
+        country;
 
       const finded = this.state.finded.toLowerCase();
 
-      return allValues.toLowerCase().indexOf(finded) > -1;
+      return all.toLowerCase().indexOf(finded) > -1;
     });
   }
 
