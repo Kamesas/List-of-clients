@@ -2,10 +2,10 @@
   border: 1px solid #eee;
 }
 .list-of-clients.no-active-item {
-  border-right: 1px solid #000;
+  border-right: 2px solid #ddd;
 }
 
 .list-of-clients.active-item {
-  border: 1px solid #000;
+  border: 2px solid #ddd;
   border-right: none;
 }
