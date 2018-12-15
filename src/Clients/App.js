@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import "semantic-ui-css/semantic.min.css";
 import { Grid, Segment } from "semantic-ui-react";
 import { connect } from "react-redux";
+import { fetchClients } from "../store/actions/actions";
 import ListOfClients from "./ListOfClients/ListOfClients";
 import ClientDetail from "./ClientDetails/ClientDetail";
 import SearchInput from "./SearchInput/SearchInput";
@@ -14,6 +15,10 @@ class App extends Component {
   getClient = client => {
     this.setState({ clientsDetails: client });
   };
+
+  componentDidMount() {
+    this.props.fetchClients();
+  }
 
   render() {
     const { clientsDetails } = this.state;
@@ -49,4 +54,11 @@ const mapStateToProps = state => ({
   clients: state.clients
 });
 
-export default connect(mapStateToProps)(App);
+const mapDispatchToProps = dispatch => ({
+  fetchClients: () => dispatch(fetchClients())
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(App);

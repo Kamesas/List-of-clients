@@ -1,13 +1,15 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import App from "./Clients/App";
-import { createStore } from "redux";
+import { createStore, applyMiddleware } from "redux";
 import rootReducer from "./store/reducers";
+import { composeWithDevTools } from "redux-devtools-extension";
 import { Provider } from "react-redux";
+import reduxThunk from "redux-thunk";
 
 const store = createStore(
   rootReducer,
-  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+  composeWithDevTools(applyMiddleware(reduxThunk))
 );
 
 ReactDOM.render(
