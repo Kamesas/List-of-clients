@@ -1,0 +1,11 @@
+.list-of-clients {
+  border: 1px solid #eee;
+}
+.list-of-clients.no-active-item {
+  border-right: 1px solid #000;
+}
+
+.list-of-clients.active-item {
+  border: 1px solid #000;
+  border-right: none;
+}

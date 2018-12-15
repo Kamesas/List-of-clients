@@ -1,12 +1,13 @@
 import React, { Component } from "react";
 import "semantic-ui-css/semantic.min.css";
-import { Grid, Segment } from "semantic-ui-react";
+import { Grid, Segment, List } from "semantic-ui-react";
 import { connect } from "react-redux";
 import { fetchClients } from "../store/actions/actions";
 import ListOfClients from "./ListOfClients/ListOfClients";
 import ClientDetail from "./ClientDetails/ClientDetail";
 import SearchInput from "./SearchInput/SearchInput";
 import Loader from "./Loader/Loader";
+import "./App.css";
 
 class App extends Component {
   state = {
@@ -57,24 +58,26 @@ class App extends Component {
   render() {
     const { clientsDetails } = this.state;
     const { clients } = this.props;
-
     return (
       <Segment>
         <Grid divided="vertically">
           <Grid.Column width={4}>
             <SearchInput searchHandle={this.searchHandle} />
 
-            {clients !== "loading" ? (
-              this.displayClients(clients).map((client, i) => (
-                <ListOfClients
-                  key={i}
-                  client={client}
-                  getClient={this.getClient}
-                />
-              ))
-            ) : (
-              <Loader />
-            )}
+            <List selection verticalAlign="middle" className="ul-clients-list">
+              {clients !== "loading" ? (
+                this.displayClients(clients).map((client, i) => (
+                  <ListOfClients
+                    key={i}
+                    client={client}
+                    getClient={this.getClient}
+                    active={clientsDetails}
+                  />
+                ))
+              ) : (
+                <Loader />
+              )}
+            </List>
           </Grid.Column>
           <Grid.Column width={12}>
             {clientsDetails !== "" ? (
