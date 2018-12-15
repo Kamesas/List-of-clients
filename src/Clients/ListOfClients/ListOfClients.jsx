@@ -1,20 +1,15 @@
 import React from "react";
 import { Image, List } from "semantic-ui-react";
 
-const ListOfClients = () => (
-  <List celled>
+const ListOfClients = ({ client }) => (
+  <List divided selection verticalAlign="middle">
     <List.Item>
-      <Image avatar circular src="/images/avatar/small/helen.jpg" />
+      <Image avatar circular src={client.general.avatar} />
       <List.Content>
-        <List.Header>Snickerdoodle</List.Header>
-        An excellent companion
-      </List.Content>
-    </List.Item>
-    <List.Item>
-      <Image avatar circular src="/images/avatar/small/daniel.jpg" />
-      <List.Content>
-        <List.Header>Paulo</List.Header>
-        He's also a dog
+        <List.Header>
+          {client.general.firstName} {client.general.lastName}
+        </List.Header>
+        {client.job.title}
       </List.Content>
     </List.Item>
   </List>

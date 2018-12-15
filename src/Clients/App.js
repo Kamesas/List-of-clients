@@ -4,6 +4,7 @@ import { Grid, Segment } from "semantic-ui-react";
 import ListOfClients from "./ListOfClients/ListOfClients";
 import ClientDetail from "./ClientDetails/ClientDetail";
 import SearchInput from "./SearchInput/SearchInput";
+import clients from "../db/clients.json";
 
 class App extends Component {
   render() {
@@ -12,7 +13,9 @@ class App extends Component {
         <Grid divided="vertically">
           <Grid.Column width={4}>
             <SearchInput />
-            <ListOfClients />
+            {clients.map((client, i) => (
+              <ListOfClients key={i} client={client} />
+            ))}
           </Grid.Column>
           <Grid.Column width={12}>
             <ClientDetail />

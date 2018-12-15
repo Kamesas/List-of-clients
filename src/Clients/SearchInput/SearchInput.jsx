@@ -4,7 +4,7 @@ import { Input } from "semantic-ui-react";
 const SearchInput = () => (
   <Input
     icon="search"
-    iconPosition="rigth"
+    iconPosition="left"
     placeholder="Search clients..."
     fluid
   />
