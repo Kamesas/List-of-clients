@@ -9,6 +9,7 @@ const ClientDetail = ({ client }) => {
       <Grid.Column width={4}>
         <Image src={general.avatar} />
       </Grid.Column>
+
       <Grid.Column width={12}>
         <Header as="h1">
           {general.firstName} {general.lastName}
@@ -21,6 +22,7 @@ const ClientDetail = ({ client }) => {
             <strong>Profession: </strong> {job.title}
           </List.Item>
         </List>
+
         <List>
           <List.Item>
             <Icon name="envelope" />
