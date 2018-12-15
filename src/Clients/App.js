@@ -7,11 +7,17 @@ import SearchInput from "./SearchInput/SearchInput";
 import clients from "../db/clients.json";
 
 class App extends Component {
+  state = {
+    clientsDetails: ""
+  };
+
   getClient = client => {
-    console.log(client);
+    this.setState({ clientsDetails: client });
   };
 
   render() {
+    const { clientsDetails } = this.state;
+    console.log(clientsDetails);
     return (
       <Segment>
         <Grid divided="vertically">
@@ -26,7 +32,11 @@ class App extends Component {
             ))}
           </Grid.Column>
           <Grid.Column width={12}>
-            <ClientDetail />
+            {clientsDetails !== "" ? (
+              <ClientDetail client={clientsDetails} />
+            ) : (
+              "Select the customer from on the left list"
+            )}
           </Grid.Column>
         </Grid>
       </Segment>
