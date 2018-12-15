@@ -1,6 +1,6 @@
 import { FETCH_CLIENTS } from "../types";
 
-const initialState = "";
+const initialState = "loading";
 
 export default (state = initialState, { type, payload }) => {
   switch (type) {

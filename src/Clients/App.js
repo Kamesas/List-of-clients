@@ -6,6 +6,7 @@ import { fetchClients } from "../store/actions/actions";
 import ListOfClients from "./ListOfClients/ListOfClients";
 import ClientDetail from "./ClientDetails/ClientDetail";
 import SearchInput from "./SearchInput/SearchInput";
+import Loader from "./Loader/Loader";
 
 class App extends Component {
   state = {
@@ -62,15 +63,18 @@ class App extends Component {
         <Grid divided="vertically">
           <Grid.Column width={4}>
             <SearchInput searchHandle={this.searchHandle} />
-            {clients !== ""
-              ? this.displayClients(clients).map((client, i) => (
-                  <ListOfClients
-                    key={i}
-                    client={client}
-                    getClient={this.getClient}
-                  />
-                ))
-              : "loading"}
+
+            {clients !== "loading" ? (
+              this.displayClients(clients).map((client, i) => (
+                <ListOfClients
+                  key={i}
+                  client={client}
+                  getClient={this.getClient}
+                />
+              ))
+            ) : (
+              <Loader />
+            )}
           </Grid.Column>
           <Grid.Column width={12}>
             {clientsDetails !== "" ? (
