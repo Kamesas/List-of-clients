@@ -7,6 +7,10 @@ import SearchInput from "./SearchInput/SearchInput";
 import clients from "../db/clients.json";
 
 class App extends Component {
+  getClient = client => {
+    console.log(client);
+  };
+
   render() {
     return (
       <Segment>
@@ -14,7 +18,11 @@ class App extends Component {
           <Grid.Column width={4}>
             <SearchInput />
             {clients.map((client, i) => (
-              <ListOfClients key={i} client={client} />
+              <ListOfClients
+                key={i}
+                client={client}
+                getClient={this.getClient}
+              />
             ))}
           </Grid.Column>
           <Grid.Column width={12}>
