@@ -12,9 +12,10 @@ import axios from "axios";
 
 export const fetchClients = () => dispach => {
   //let url = "http://localhost:3004/clients";
-  let urlLocal = "clients.json";
+  //let urlLocal = "clients.json";
+  let fromFirebase = "https://listofclients-a081f.firebaseio.com/clients.json";
   axios
-    .get(urlLocal)
+    .get(fromFirebase)
     .then(function(response) {
       //console.log(response.status);
       return dispach({ type: FETCH_CLIENTS, payload: response.data });
