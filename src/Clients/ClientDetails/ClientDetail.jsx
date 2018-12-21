@@ -15,39 +15,55 @@ const ClientDetail = ({ client }) => {
           {general.firstName} {general.lastName}
         </Header>
         <List size={"big"}>
-          <List.Item>
-            <strong>Company: </strong> {job.company}
-          </List.Item>
-          <List.Item>
-            <strong>Profession: </strong> {job.title}
-          </List.Item>
+          {job.company && (
+            <List.Item>
+              <strong>Company: </strong> {job.company}
+            </List.Item>
+          )}
+          {job.title && (
+            <List.Item>
+              <strong>Profession: </strong> {job.title}
+            </List.Item>
+          )}
         </List>
 
         <List>
-          <List.Item>
-            <Icon name="envelope" />
-            {contact.email}
-          </List.Item>
-          <List.Item>
-            <Icon name="phone" />
-            {contact.phone}
-          </List.Item>
+          {contact.email && (
+            <List.Item>
+              <Icon name="envelope" />
+              {contact.email}
+            </List.Item>
+          )}
+          {contact.phone && (
+            <List.Item>
+              <Icon name="phone" />
+              {contact.phone}
+            </List.Item>
+          )}
         </List>
 
         <List>
-          <List.Item>
-            <strong>Country: </strong>
-            {address.country}
-          </List.Item>
-          <List.Item>
-            <strong>City: </strong> {address.city}
-          </List.Item>
-          <List.Item>
-            <strong>Street: </strong> {address.street}
-          </List.Item>
-          <List.Item>
-            <strong>ZipCode: </strong> {address.zipCode}
-          </List.Item>
+          {address.country && (
+            <List.Item>
+              <strong>Country: </strong>
+              {address.country}
+            </List.Item>
+          )}
+          {address.city && (
+            <List.Item>
+              <strong>City: </strong> {address.city}
+            </List.Item>
+          )}
+          {address.street && (
+            <List.Item>
+              <strong>Street: </strong> {address.street}
+            </List.Item>
+          )}
+          {address.zipCode && (
+            <List.Item>
+              <strong>ZipCode: </strong> {address.zipCode}
+            </List.Item>
+          )}
         </List>
       </Grid.Column>
     </Grid>
