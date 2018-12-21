@@ -2,7 +2,7 @@ import React from "react";
 import { Image, List } from "semantic-ui-react";
 import "./ListOfClients.css";
 
-const ListOfClients = ({ client, getClient, active }) => {
+const ListOfClients = ({ client, id, getClient, active }) => {
   const { general, job } = client;
 
   function thisClient() {
@@ -15,13 +15,15 @@ const ListOfClients = ({ client, getClient, active }) => {
       className={`list-of-clients ${active === client ? "active-item" : ""} ${
         active !== "" ? "no-active-item" : ""
       }`}
+      id={id}
     >
-      <Image avatar circular src={general.avatar} />
+      <Image avatar circular src={general.avatar ? general.avatar : ""} />
       <List.Content>
         <List.Header>
-          {general.firstName} {general.lastName}
+          {general.firstName ? general.firstName : ""}{" "}
+          {general.lastName ? general.lastName : ""}
         </List.Header>
-        {job.title}
+        {job.title ? job.title : ""}
       </List.Content>
     </List.Item>
   );

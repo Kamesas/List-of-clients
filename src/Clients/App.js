@@ -7,6 +7,8 @@ import ListOfClients from "./ListOfClients/ListOfClients";
 import ClientDetail from "./ClientDetails/ClientDetail";
 import SearchInput from "./SearchInput/SearchInput";
 import Loader from "./Loader/Loader";
+import _ from "lodash";
+import AddClient from "../Clients/AddClient/AddClient";
 import "./App.css";
 
 class App extends Component {
@@ -20,11 +22,13 @@ class App extends Component {
   };
 
   displayClients(clients) {
+    const customers = _.map(clients, (value, index) => value);
+
     if (this.state.finded.length === 0) {
       return clients;
     }
 
-    return clients.filter(({ general, job, contact, address }) => {
+    return customers.filter(({ general, job, contact, address }) => {
       const { firstName, lastName } = general;
       const { company, title } = job;
       const { email, phone } = contact;
@@ -66,9 +70,10 @@ class App extends Component {
 
             <List selection verticalAlign="middle" className="ul-clients-list">
               {clients !== "loading" ? (
-                this.displayClients(clients).map((client, i) => (
+                _.map(this.displayClients(clients), (client, key) => (
                   <ListOfClients
-                    key={i}
+                    key={key}
+                    id={key}
                     client={client}
                     getClient={this.getClient}
                     active={clientsDetails}
@@ -85,6 +90,7 @@ class App extends Component {
             ) : (
               "Select the customer from on the left list"
             )}
+            <AddClient />
           </Grid.Column>
         </Grid>
       </Segment>
