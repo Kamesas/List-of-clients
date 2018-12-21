@@ -10,3 +10,7 @@ export const fetchClients = () => async dispatch => {
 export const addClient = newClient => async dispatch => {
   firebaseClients.push().set(newClient);
 };
+
+export const removeClient = removeClientId => async dispatch => {
+  firebaseClients.child(removeClientId).remove();
+};

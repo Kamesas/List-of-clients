@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
+import { removeClient } from "../../store/actions/actions";
 import { Image, List, Button } from "semantic-ui-react";
 import "./ListOfClients.css";
 
@@ -19,8 +21,12 @@ class ListOfClients extends Component {
     this.setState({ showBtn: false });
   };
 
-  edit = () => {
+  editClient = () => {
     alert("edit");
+  };
+
+  delClient = () => {
+    this.props.removeClient(this.props.id);
   };
 
   render() {
@@ -47,11 +53,13 @@ class ListOfClients extends Component {
 
         {this.state.showBtn ? (
           <Button.Group size="mini" fluid style={{ marginTop: 10 }}>
-            <Button color="green" onClick={this.edit}>
+            <Button color="green" onClick={this.editClient}>
               Edit
             </Button>
             <Button.Or />
-            <Button color="red">Delete</Button>
+            <Button color="red" onClick={this.delClient}>
+              Delete
+            </Button>
           </Button.Group>
         ) : null}
       </List.Item>
@@ -59,4 +67,11 @@ class ListOfClients extends Component {
   }
 }
 
-export default ListOfClients;
+const mapDispatchToProps = dispatch => ({
+  removeClient: id => dispatch(removeClient(id))
+});
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(ListOfClients);
