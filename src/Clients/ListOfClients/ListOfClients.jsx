@@ -26,7 +26,8 @@ class ListOfClients extends Component {
   };
 
   delClient = () => {
-    this.props.removeClient(this.props.id);
+    window.confirm("Are you sure you wish to delete this item?") &&
+      this.props.removeClient(this.props.id);
   };
 
   render() {
