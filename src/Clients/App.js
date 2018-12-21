@@ -9,6 +9,7 @@ import SearchInput from "./SearchInput/SearchInput";
 import Loader from "./Loader/Loader";
 import _ from "lodash";
 import AddClient from "../Clients/AddClient/AddClient";
+import Modal from "../Clients/Modal/Modal";
 import "./App.css";
 
 class App extends Component {
@@ -90,7 +91,9 @@ class App extends Component {
             ) : (
               "Select the customer from on the left list"
             )}
-            <AddClient />
+            <Modal>
+              <AddClient />
+            </Modal>
           </Grid.Column>
         </Grid>
       </Segment>

@@ -52,7 +52,10 @@ class AddClient extends Component {
       job: { company: company, title: title }
     };
 
-    this.props.addClient(newClient);
+    firstName !== "" || lastName !== ""
+      ? this.props.addClient(newClient)
+      : alert("enter the name");
+
     this.setState({
       firstName: "",
       lastName: "",
@@ -163,7 +166,7 @@ class AddClient extends Component {
           />
         </Form.Group>
 
-        <Button type="submit" onClick={this.handleSubmit}>
+        <Button type="submit" color="green" onClick={this.handleSubmit}>
           Submit
         </Button>
       </Form>
