@@ -1,4 +1,4 @@
-import { FETCH_CLIENTS } from "../types";
+import { FETCH_CLIENTS, REMOVE_CLIENTS } from "../types";
 import { firebaseClients } from "../../config/fbConfig";
 
 export const fetchClients = () => async dispatch => {
@@ -11,6 +11,15 @@ export const addClient = newClient => async dispatch => {
   firebaseClients.push().set(newClient);
 };
 
+// export const removeClient = removeClientId => async dispatch => {
+//   firebaseClients.child(removeClientId).remove();
+// };
+
 export const removeClient = removeClientId => async dispatch => {
-  firebaseClients.child(removeClientId).remove();
+  firebaseClients
+    .child(removeClientId)
+    .remove()
+    .then(() => {
+      dispatch({ type: REMOVE_CLIENTS, payload: removeClientId });
+    });
 };

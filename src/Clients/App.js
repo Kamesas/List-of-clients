@@ -23,32 +23,33 @@ class App extends Component {
   };
 
   displayClients(clients) {
-    const customers = _.map(clients, (value, index) => value);
+    const serchValue = this.state.finded.toLowerCase();
 
     if (this.state.finded.length === 0) {
       return clients;
     }
 
-    return customers.filter(({ general, job, contact, address }) => {
-      const { firstName, lastName } = general;
-      const { company, title } = job;
-      const { email, phone } = contact;
-      const { street, city, zipCode, country } = address;
-      const all =
-        firstName +
-        lastName +
-        company +
-        title +
-        email +
-        phone +
-        street +
-        city +
-        zipCode +
-        country;
+    return _.filter(clients, el => {
+      if (el !== null) {
+        const { firstName, lastName } = el.props.client.general;
+        const { company, title } = el.props.client.job;
+        const { email, phone } = el.props.client.contact;
+        const { street, city, zipCode, country } = el.props.client.address;
+        const all =
+          firstName +
+          lastName +
+          company +
+          title +
+          email +
+          phone +
+          street +
+          city +
+          zipCode +
+          country;
 
-      const finded = this.state.finded.toLowerCase();
-
-      return all.toLowerCase().indexOf(finded) > -1;
+        //return all.toLowerCase().indexOf(serchValue) > -1;
+        return all.toLowerCase().includes(serchValue);
+      }
     });
   }
 
@@ -63,6 +64,19 @@ class App extends Component {
   render() {
     const { clientsDetails } = this.state;
     const { clients } = this.props;
+
+    const listClients = _.map(clients, (client, key) =>
+      client ? (
+        <ListOfClients
+          key={key}
+          id={key}
+          client={client}
+          getClient={this.getClient}
+          active={clientsDetails}
+        />
+      ) : null
+    );
+
     return (
       <Segment>
         <Grid divided="vertically">
@@ -71,20 +85,13 @@ class App extends Component {
 
             <List selection verticalAlign="middle" className="ul-clients-list">
               {clients !== "loading" ? (
-                _.map(this.displayClients(clients), (client, key) => (
-                  <ListOfClients
-                    key={key}
-                    id={key}
-                    client={client}
-                    getClient={this.getClient}
-                    active={clientsDetails}
-                  />
-                ))
+                this.displayClients(listClients)
               ) : (
                 <Loader />
               )}
             </List>
           </Grid.Column>
+
           <Grid.Column width={12}>
             {clientsDetails !== "" ? (
               <ClientDetail client={clientsDetails} />

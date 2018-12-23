@@ -8,7 +8,7 @@ class WindowModal extends Component {
   close = () => this.setState({ open: false });
 
   render() {
-    const { open, dimmer } = this.state;
+    const { open } = this.state;
 
     const sytleFixed = {
       position: "fixed",
@@ -21,11 +21,12 @@ class WindowModal extends Component {
         <Button
           onClick={this.show("blurring")}
           circular
+          color="green"
           icon="plus"
           size="big"
         />
 
-        <Modal /* dimmer={dimmer} */ open={open} onClose={this.close}>
+        <Modal open={open} onClose={this.close}>
           <Header icon="user outline" content="Add new client" />
           <Modal.Content image>
             <Modal.Description>{this.props.children}</Modal.Description>

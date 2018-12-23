@@ -1,1 +1,3 @@
 export const FETCH_CLIENTS = "FETCH_CLIENTS";
+export const REMOVE_CLIENTS = "REMOVE_CLIENTS";
+export const SEARCH_CLIENTS = "SEARCH_CLIENTS";
