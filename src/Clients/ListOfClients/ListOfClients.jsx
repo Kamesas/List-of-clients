@@ -2,27 +2,30 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { removeClient } from "../../store/actions/actions";
 import { Image, List, Button } from "semantic-ui-react";
+import EditClient from "../EditCLient/EditClient";
+import EditModal from "../Modal/EditModal";
 import "./ListOfClients.css";
 
 class ListOfClients extends Component {
   state = {
-    showBtn: false
+    showBtn: false,
+    edit: false
   };
 
   thisClient = () => {
     this.props.getClient(this.props.client);
   };
 
-  showSettingBtn = () => {
-    this.setState({ showBtn: true });
-  };
-
-  hideSettingBtn = () => {
-    this.setState({ showBtn: false });
+  showHideSettings = () => {
+    this.setState({ showBtn: !this.state.showBtn });
   };
 
   editClient = () => {
-    alert("edit");
+    this.setState({ edit: true });
+  };
+
+  closeEditWindow = () => {
+    this.setState({ edit: false });
   };
 
   delClient = () => {
@@ -36,8 +39,6 @@ class ListOfClients extends Component {
     return (
       <List.Item
         onClick={this.thisClient}
-        onMouseEnter={this.showSettingBtn}
-        onMouseLeave={this.hideSettingBtn}
         className={`list-of-clients ${active === client ? "active-item" : ""} ${
           active !== "" ? "no-active-item" : ""
         }`}
@@ -51,18 +52,30 @@ class ListOfClients extends Component {
           </List.Header>
           {job.title ? job.title : ""}
         </List.Content>
-
-        {this.state.showBtn ? (
-          <Button.Group size="mini" fluid style={{ marginTop: 10 }}>
-            <Button color="green" onClick={this.editClient}>
-              Edit
-            </Button>
-            <Button.Or />
-            <Button color="red" onClick={this.delClient}>
-              Delete
-            </Button>
-          </Button.Group>
-        ) : null}
+        <Button
+          compact
+          circular
+          floated="right"
+          icon={this.state.showBtn ? "angle up" : "angle down"}
+          onClick={this.showHideSettings}
+        />
+        <div>
+          {this.state.showBtn ? (
+            <Button.Group size="mini" fluid style={{ marginTop: 10 }}>
+              <EditModal>
+                <EditClient
+                  id={this.props.id}
+                  client={this.props.client}
+                  closeEditWindow={this.closeEditWindow}
+                />
+              </EditModal>
+              <Button.Or />
+              <Button color="red" onClick={this.delClient}>
+                Delete
+              </Button>
+            </Button.Group>
+          ) : null}
+        </div>
       </List.Item>
     );
   }
