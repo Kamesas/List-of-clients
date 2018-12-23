@@ -13,3 +13,4 @@ firebase.initializeApp(FirebaseConfig);
 
 const databaseRef = firebase.database().ref();
 export const firebaseClients = databaseRef.child("clients");
+export const storage = firebase.storage(); //allow read, write: if request.auth != null;

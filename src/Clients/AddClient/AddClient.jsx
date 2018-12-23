@@ -2,9 +2,12 @@ import React, { Component } from "react";
 import { Button, Form } from "semantic-ui-react";
 import { addClient } from "../../store/actions/actions";
 import { connect } from "react-redux";
+import { storage } from "../../config/fbConfig";
 
 class AddClient extends Component {
   state = {
+    image: null,
+    url: "https://s3.amazonaws.com/uifaces/faces/twitter/falconerie/128.jpg",
     firstName: "",
     lastName: "",
     email: "",
@@ -23,6 +26,7 @@ class AddClient extends Component {
 
   handleSubmit = () => {
     const {
+      url,
       firstName,
       lastName,
       email,
@@ -44,8 +48,7 @@ class AddClient extends Component {
       },
       contact: { email: email, phone: phone },
       general: {
-        avatar:
-          "https://s3.amazonaws.com/uifaces/faces/twitter/falconerie/128.jpg",
+        avatar: url,
         firstName: firstName,
         lastName: lastName
       },
@@ -70,7 +73,39 @@ class AddClient extends Component {
     });
   };
 
+  uploadFile = e => {
+    if (e.target.files[0]) {
+      this.setState({ image: e.target.files[0] });
+    }
+  };
+
+  handleUpload = () => {
+    const { image } = this.state;
+    const uploadTask = storage.ref(`images/${image.name}`).put(image);
+    uploadTask.on(
+      "state_changed",
+      snapshot => {
+        //progress
+      },
+      error => {
+        console.log(error);
+      },
+      () => {
+        // complete
+        storage
+          .ref("images")
+          .child(image.name)
+          .getDownloadURL()
+          .then(url => {
+            console.log(url);
+            this.setState({ url });
+          });
+      }
+    );
+  };
+
   render() {
+    console.log(this.state.image, this.state.url);
     const {
       firstName,
       lastName,
@@ -85,6 +120,16 @@ class AddClient extends Component {
     } = this.state;
     return (
       <Form>
+        <Form.Group unstackable widths={2}>
+          <Form.Input
+            label="Upload file"
+            type="file"
+            size="mini"
+            onChange={this.uploadFile}
+          />
+          <Button content="Upload" onClick={this.handleUpload} />
+          <img src={this.state.url} alt="avatar" width="100" height="100" />
+        </Form.Group>
         <Form.Group unstackable widths={2}>
           <Form.Input
             label="First name"
