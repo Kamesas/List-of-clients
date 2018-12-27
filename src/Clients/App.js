@@ -11,6 +11,7 @@ import _ from "lodash";
 import AddClient from "../Clients/AddClient/AddClient";
 import Modal from "../Clients/Modal/Modal";
 import "./App.css";
+import Accardion from "./HOC/Accardion";
 
 class App extends Component {
   state = {
@@ -73,6 +74,8 @@ class App extends Component {
           client={client}
           getClient={this.getClient}
           active={clientsDetails}
+          showHideItem={key === this.props.openItemId}
+          toggleOpenItem={this.props.toggleOpenItem(key)}
         />
       ) : null
     );
@@ -84,11 +87,7 @@ class App extends Component {
             <SearchInput searchHandle={this.searchHandle} />
 
             <List selection verticalAlign="middle" className="ul-clients-list">
-              {clients !== "loading" ? (
-                this.displayClients(listClients)
-              ) : (
-                <Loader />
-              )}
+              {clients !== "" ? this.displayClients(listClients) : <Loader />}
             </List>
           </Grid.Column>
 
@@ -119,4 +118,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(App);
+)(Accardion(App));

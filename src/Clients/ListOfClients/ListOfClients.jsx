@@ -5,10 +5,10 @@ import { Image, List, Button } from "semantic-ui-react";
 import EditClient from "../EditCLient/EditClient";
 import EditModal from "../Modal/EditModal";
 import "./ListOfClients.css";
+//import Accardion from "../HOC/Accardion";
 
 class ListOfClients extends Component {
   state = {
-    showBtn: false,
     edit: false
   };
 
@@ -56,11 +56,11 @@ class ListOfClients extends Component {
           compact
           circular
           floated="right"
-          icon={this.state.showBtn ? "angle up" : "angle down"}
-          onClick={this.showHideSettings}
+          icon={this.props.showHideItem ? "angle up" : "angle down"}
+          onClick={this.props.toggleOpenItem}
         />
         <div>
-          {this.state.showBtn ? (
+          {this.props.showHideItem ? (
             <Button.Group size="mini" fluid style={{ marginTop: 10 }}>
               <EditModal>
                 <EditClient

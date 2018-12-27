@@ -8,6 +8,7 @@ class AddClient extends Component {
   state = {
     image: null,
     url: "https://s3.amazonaws.com/uifaces/faces/twitter/falconerie/128.jpg",
+    progress: 0,
     firstName: "",
     lastName: "",
     email: "",
@@ -86,6 +87,10 @@ class AddClient extends Component {
       "state_changed",
       snapshot => {
         //progress
+        const progress = Math.round(
+          (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+        );
+        this.setState({ progress });
       },
       error => {
         console.log(error);
@@ -129,6 +134,7 @@ class AddClient extends Component {
           />
           <Button content="Upload" onClick={this.handleUpload} />
           <img src={this.state.url} alt="avatar" width="100" height="100" />
+          <progress value={this.state.progress} max="100" />
         </Form.Group>
         <Form.Group unstackable widths={2}>
           <Form.Input
