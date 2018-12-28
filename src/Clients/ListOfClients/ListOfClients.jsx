@@ -39,9 +39,14 @@ class ListOfClients extends Component {
       active !== "" ? "no-active-item" : ""
     }`;
     return (
-      <List.Item onClick={this.thisClient} className={stl} id={id}>
-        <Image avatar circular src={general.avatar ? general.avatar : ""} />
-        <List.Content>
+      <List.Item className={stl} id={id}>
+        <Image
+          avatar
+          circular
+          src={general.avatar ? general.avatar : ""}
+          onClick={this.thisClient}
+        />
+        <List.Content onClick={this.thisClient}>
           <List.Header>
             {general.firstName ? general.firstName : ""}{" "}
             {general.lastName ? general.lastName : ""}

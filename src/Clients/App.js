@@ -56,6 +56,9 @@ class App extends Component {
 
   getClient = client => {
     this.setState({ clientsDetails: client });
+    if (this.props.openItemId !== null) {
+      this.props.openItemIdRefresh();
+    }
   };
 
   componentDidMount() {

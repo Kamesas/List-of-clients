@@ -10,12 +10,17 @@ function Accardion(WrappedComponent) {
       });
     };
 
+    openItemIdRefresh = () => {
+      this.setState({ openItemId: null });
+    };
+
     render() {
       return (
         <WrappedComponent
           {...this.props}
           {...this.state}
           toggleOpenItem={this.toggleOpenItem}
+          openItemIdRefresh={this.openItemIdRefresh}
         />
       );
     }

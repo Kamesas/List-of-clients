@@ -4,7 +4,7 @@ import stl from "./style.module.sass";
 
 class UploadImg extends Component {
   state = {
-    image: null,
+    image: this.props.url ? this.props.url : null,
     url: "https://s3.amazonaws.com/uifaces/faces/twitter/falconerie/128.jpg",
     progress: 0,
     styleColor: "transparent"
@@ -49,7 +49,10 @@ class UploadImg extends Component {
   render() {
     return (
       <div className={stl["uploadImg"]}>
-        <img src={this.state.url} alt="avatar" />
+        <img
+          src={this.props.url ? this.props.url : this.state.url}
+          alt="avatar"
+        />
 
         <div className={stl["div-input-btn-progress"]}>
           <div className={stl["div-input-btn"]}>

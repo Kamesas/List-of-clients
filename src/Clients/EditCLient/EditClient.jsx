@@ -2,9 +2,11 @@ import React, { Component } from "react";
 import { Button, Form } from "semantic-ui-react";
 import { updateContact } from "../../store/actions/actions";
 import { connect } from "react-redux";
+import UploadImg from "../UploadImg/UploadImg";
 
 class EditClient extends Component {
   state = {
+    //url: this.props.client.general.avatar,
     firstName: this.props.client.general.firstName,
     lastName: this.props.client.general.lastName,
     avatar: this.props.client.general.avatar,
@@ -54,8 +56,11 @@ class EditClient extends Component {
     this.props.closeEditWindow();
   };
 
+  getUrl = url => {
+    this.setState({ avatar: url });
+  };
+
   render() {
-    console.log(this.props);
     const {
       firstName,
       lastName,
@@ -70,6 +75,8 @@ class EditClient extends Component {
     } = this.state;
     return (
       <Form>
+        <UploadImg getUrl={this.getUrl} url={this.state.avatar} />
+        <hr />
         <Form.Group unstackable widths={2}>
           <Form.Input
             label="First name"
