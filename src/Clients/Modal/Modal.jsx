@@ -10,20 +10,15 @@ class WindowModal extends Component {
   render() {
     const { open } = this.state;
 
-    const sytleFixed = {
-      position: "fixed",
-      bottom: 10,
-      right: 10
-    };
-
     return (
-      <div style={sytleFixed}>
+      <div>
         <Button
           onClick={this.show("blurring")}
           circular
           color="green"
           icon="plus"
           size="big"
+          className="btn-add-client"
         />
 
         <Modal open={open} onClose={this.close}>

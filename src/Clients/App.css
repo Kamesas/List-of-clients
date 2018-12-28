@@ -2,3 +2,33 @@
 .ul-clients-list.ui.selection.list > .item {
   border-radius: 0;
 }
+
+.segment {
+  height: 100vh;
+  overflow: hidden;
+  position: relative;
+}
+
+.btn-add-client {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+}
+
+.ul-clients-list {
+  height: 90vh;
+  text-align: left;
+  overflow-y: scroll;
+  direction: rtl;
+  border-top: 1px solid #eee;
+  border-bottom: 1px solid #eee;
+}
+
+.ul-clients-list img {
+  float: left;
+}
+
+.ul-clients-list::-webkit-scrollbar {
+  width: 4px;
+  height: 6px;
+}

@@ -1,5 +1,6 @@
 .list-of-clients {
   border: 1px solid #eee;
+  position: relative;
 }
 .list-of-clients.no-active-item {
   border-right: 2px solid #ddd;
@@ -8,4 +9,19 @@
 .list-of-clients.active-item {
   border: 2px solid #ddd;
   border-right: none;
+}
+
+.btn-angel {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+}
+
+.list-of-clients .btns-settings {
+  display: flex;
+  justify-content: space-between;
+}
+.list-of-clients .btns-settings > div {
+  width: 49%;
+  margin-top: 5px;
 }

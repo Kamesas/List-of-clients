@@ -12,7 +12,7 @@ class EditModal extends Component {
 
     return (
       <div>
-        <Button onClick={this.show("blurring")} color="green" size="mini">
+        <Button onClick={this.show("blurring")} fluid color="green" size="mini">
           Edit
         </Button>
 

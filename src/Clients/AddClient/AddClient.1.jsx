@@ -1,21 +1,26 @@
 import React, { Component } from "react";
 import { Button, Form } from "semantic-ui-react";
-import { updateContact } from "../../store/actions/actions";
+import { addClient } from "../../store/actions/actions";
 import { connect } from "react-redux";
+import { storage } from "../../config/fbConfig";
+import UploadImg from "../UploadImg/UploadImg";
+import "./style.css";
 
-class EditClient extends Component {
+class AddClient extends Component {
   state = {
-    firstName: this.props.client.general.firstName,
-    lastName: this.props.client.general.lastName,
-    avatar: this.props.client.general.avatar,
-    email: this.props.client.contact.email,
-    phone: this.props.client.contact.phone,
-    city: this.props.client.address.city,
-    country: this.props.client.address.country,
-    street: this.props.client.address.street,
-    zipCode: this.props.client.address.zipCode,
-    company: this.props.client.job.company,
-    title: this.props.client.job.title
+    image: null,
+    url: "https://s3.amazonaws.com/uifaces/faces/twitter/falconerie/128.jpg",
+    progress: 0,
+    firstName: "",
+    lastName: "",
+    email: "",
+    phone: "",
+    city: "",
+    country: "",
+    street: "",
+    zipCode: "",
+    company: "",
+    title: ""
   };
 
   handleChange = e => {
@@ -24,9 +29,9 @@ class EditClient extends Component {
 
   handleSubmit = () => {
     const {
+      url,
       firstName,
       lastName,
-      avatar,
       email,
       phone,
       city,
@@ -37,7 +42,7 @@ class EditClient extends Component {
       title
     } = this.state;
 
-    const updateContact = {
+    const newClient = {
       address: {
         city: city,
         country: country,
@@ -45,17 +50,69 @@ class EditClient extends Component {
         zipCode: zipCode
       },
       contact: { email: email, phone: phone },
-      general: { avatar: avatar, firstName: firstName, lastName: lastName },
+      general: {
+        avatar: url,
+        firstName: firstName,
+        lastName: lastName
+      },
       job: { company: company, title: title }
     };
 
-    this.props.updateContact(this.props.id, updateContact);
+    firstName !== "" || lastName !== ""
+      ? this.props.addClient(newClient)
+      : alert("enter the name");
 
-    this.props.closeEditWindow();
+    this.setState({
+      firstName: "",
+      lastName: "",
+      email: "",
+      phone: "",
+      city: "",
+      country: "",
+      street: "",
+      zipCode: "",
+      company: "",
+      title: ""
+    });
+  };
+
+  uploadFile = e => {
+    if (e.target.files[0]) {
+      this.setState({ image: e.target.files[0] });
+    }
+  };
+
+  handleUpload = () => {
+    const { image } = this.state;
+    const uploadTask = storage.ref(`images/${image.name}`).put(image);
+    uploadTask.on(
+      "state_changed",
+      snapshot => {
+        //progress
+        const progress = Math.round(
+          (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+        );
+        this.setState({ progress });
+      },
+      error => {
+        console.log(error);
+      },
+      () => {
+        // complete
+        storage
+          .ref("images")
+          .child(image.name)
+          .getDownloadURL()
+          .then(url => {
+            console.log(url);
+            this.setState({ url });
+          });
+      }
+    );
   };
 
   render() {
-    console.log(this.props);
+    console.log(this.state.image, this.state.url);
     const {
       firstName,
       lastName,
@@ -70,6 +127,19 @@ class EditClient extends Component {
     } = this.state;
     return (
       <Form>
+        <UploadImg />
+        <hr />
+        <Form.Group unstackable widths={2}>
+          <Form.Input
+            label="Upload file"
+            type="file"
+            size="mini"
+            onChange={this.uploadFile}
+          />
+          <Button content="Upload" onClick={this.handleUpload} />
+          <img src={this.state.url} alt="avatar" width="100" height="100" />
+          <progress value={this.state.progress} max="100" />
+        </Form.Group>
         <Form.Group unstackable widths={2}>
           <Form.Input
             label="First name"
@@ -152,7 +222,7 @@ class EditClient extends Component {
         </Form.Group>
 
         <Button type="submit" color="green" onClick={this.handleSubmit}>
-          Save
+          Submit
         </Button>
       </Form>
     );
@@ -160,10 +230,10 @@ class EditClient extends Component {
 }
 
 const mapDispatchToProps = dispatch => ({
-  updateContact: (id, uptClients) => dispatch(updateContact(id, uptClients))
+  addClient: newClients => dispatch(addClient(newClients))
 });
 
 export default connect(
   null,
   mapDispatchToProps
-)(EditClient);
+)(AddClient);
