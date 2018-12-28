@@ -7,6 +7,7 @@ import "./style.css";
 
 class AddClient extends Component {
   state = {
+    progress: 0,
     url: "https://s3.amazonaws.com/uifaces/faces/twitter/falconerie/128.jpg",
     firstName: "",
     lastName: "",
@@ -69,7 +70,9 @@ class AddClient extends Component {
       street: "",
       zipCode: "",
       company: "",
-      title: ""
+      title: "",
+      url: "https://s3.amazonaws.com/uifaces/faces/twitter/falconerie/128.jpg",
+      progress: "0"
     });
   };
 
@@ -92,7 +95,11 @@ class AddClient extends Component {
     } = this.state;
     return (
       <Form>
-        <UploadImg getUrl={this.getUrl} />
+        <UploadImg
+          getUrl={this.getUrl}
+          url={this.state.url}
+          progress={this.state.progress}
+        />
         <hr />
         <Form.Group unstackable widths={2}>
           <Form.Input

@@ -6,7 +6,7 @@ import UploadImg from "../UploadImg/UploadImg";
 
 class EditClient extends Component {
   state = {
-    //url: this.props.client.general.avatar,
+    progress: 0,
     firstName: this.props.client.general.firstName,
     lastName: this.props.client.general.lastName,
     avatar: this.props.client.general.avatar,
@@ -54,6 +54,7 @@ class EditClient extends Component {
     this.props.updateContact(this.props.id, updateContact);
 
     this.props.closeEditWindow();
+    this.setState({ progress: "0" });
   };
 
   getUrl = url => {
@@ -75,7 +76,11 @@ class EditClient extends Component {
     } = this.state;
     return (
       <Form>
-        <UploadImg getUrl={this.getUrl} url={this.state.avatar} />
+        <UploadImg
+          getUrl={this.getUrl}
+          url={this.state.avatar}
+          progress={this.state.progress}
+        />
         <hr />
         <Form.Group unstackable widths={2}>
           <Form.Input
