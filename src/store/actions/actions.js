@@ -1,5 +1,5 @@
-import { FETCH_CLIENTS } from "../types";
-import { firebaseClients } from "../../config/fbConfig";
+import { FETCH_CLIENTS, FETCH_USER } from "../types";
+import { firebaseClients, authRef, provider } from "../../config/fbConfig";
 
 export const fetchClients = () => async dispatch => {
   firebaseClients.on("value", snapshot => {
@@ -25,4 +25,40 @@ export const updateContact = (id, data) => async dispatch => {
       errorCode: error.code,
       errorMessage: error.message
     }));
+};
+
+export const fetchUser = () => dispatch => {
+  authRef.onAuthStateChanged(user => {
+    if (user) {
+      dispatch({
+        type: FETCH_USER,
+        payload: user
+      });
+    } else {
+      dispatch({
+        type: FETCH_USER,
+        payload: null
+      });
+    }
+  });
+};
+
+export const signIn = () => dispatch => {
+  authRef
+    .signInWithPopup(provider)
+    .then(result => {})
+    .catch(error => {
+      console.log(error);
+    });
+};
+
+export const signOut = () => dispatch => {
+  authRef
+    .signOut()
+    .then(() => {
+      // Sign-out successful.
+    })
+    .catch(error => {
+      console.log(error);
+    });
 };
