@@ -62,11 +62,7 @@ class App extends Component {
   };
 
   componentDidMount() {
-    console.log(this.props.auth);
-    // console.log(this.props.fetchClients());
     this.props.fetchClients();
-    // const { auth } = this.props;
-    // this.props.fetchToDos(auth.uid);
   }
 
   render() {
