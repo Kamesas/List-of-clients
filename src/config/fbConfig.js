@@ -3,6 +3,8 @@ import { FirebaseConfig } from "./FirebaseConfig";
 
 firebase.initializeApp(FirebaseConfig);
 
+firebase.auth().languageCode = "ru";
+
 const databaseRef = firebase.database().ref();
 export const firebaseClients = databaseRef.child("clients");
 
