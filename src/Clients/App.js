@@ -12,6 +12,7 @@ import AddClient from "../Clients/AddClient/AddClient";
 import Modal from "../Clients/Modal/Modal";
 import "./App.css";
 import Accardion from "./HOC/Accardion";
+import { testClient } from "./AppStore";
 
 class App extends Component {
   state = {
@@ -65,6 +66,10 @@ class App extends Component {
     this.props.fetchClients();
   }
 
+  test = testUser => {
+    this.props.testClient(testUser);
+  };
+
   render() {
     const { clientsDetails } = this.state;
     const { clients } = this.props;
@@ -85,6 +90,7 @@ class App extends Component {
 
     return (
       <Segment>
+        <button onClick={() => this.test("Alex test")}>Test</button>
         <Grid divided="vertically">
           <Grid.Column width={4}>
             <SearchInput searchHandle={this.searchHandle} />
@@ -115,7 +121,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  fetchClients: () => dispatch(fetchClients())
+  fetchClients: () => dispatch(fetchClients()),
+  testClient: testUser => dispatch(testClient(testUser))
 });
 
 export default connect(
