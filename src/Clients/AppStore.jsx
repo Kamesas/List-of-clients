@@ -1,14 +1,14 @@
 export const testClient = newClient => async dispatch => {
   console.log(newClient);
-  dispatch({ type: "Test", payload: console.log("from test") });
+  dispatch({ type: "Test", payload: newClient });
 };
 
 const initialState = "";
 
 export const testClientReducer = (state = initialState, { type, payload }) => {
   switch (type) {
-    case "test":
-      return payload;
+    case "Test":
+      return (state = payload);
 
     default:
       return state;

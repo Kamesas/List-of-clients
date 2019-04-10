@@ -13,6 +13,7 @@ const store = createStore(
 );
 
 store.subscribe(() => console.log(store.getState()));
+console.log("getState", store.getState());
 
 ReactDOM.render(
   <Provider store={store}>
